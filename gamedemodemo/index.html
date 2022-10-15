@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html>
+
+ 
+<head>
+<link rel="stylesheet" href="css/style.css?ttd=43344" />
+
+ <!-- BEGINN WALLET-INCLUDE-->
+    
+    <!-- Anchor js -->
+    <script src="https://unpkg.com/anchor-link@next"></script>
+    <script src="https://unpkg.com/anchor-link-browser-transport@next"></script>
+        
+    <!-- Scatter js -->
+    <script src="https://cdn.jsdelivr.net/npm/eosjs@16.0.9/lib/eos.min.js"></script>
+    <script src="js/bundles/scatterjs-core.min.js"></script>
+    <script src="js/bundles/scatterjs-plugin-eosjs.min.js"></script>
+    <script src="js/bundles/scatterjs-plugin-lynx.min.js"></script>    
+    
+    <script src="js/eosiowallet/wallet.js?dsd=79524"></script>   
+ 
+    <script src='js/wax/waxjs.js'></script>             
+    <script src="js/eosjs-account-name_2.2.1.js"></script>                
+              
+ <!-- END WALLET-INCLUDE-->
+
+
+
+</head>
+
+<body class='bodyclass'>
+
+
+<div id='logo1' class='logo1x' style='text-align:center;'>
+  <img src='img/logo.svg?t=d4543s' style='margin-top:30px;height:160px;'><br>
+  XUSO GAME-DEMO<br>
+  <br>
+</div>
+ 
+
+
+ 
+
+
+
+<!-- walletmenu -->
+
+<div id='walletmenu' class='walletmenu' style=''>
+
+<div id='walletmenu_left' style='float:left;position:relative;width:49%;text-align:center;margin-top:20px;background:#55ff55;'>
+
+
+ <div id='walletmenu_accountname' style='position:absolute;width:100%;top:0px;'>
+ 
+  <div id='myaccountname' class='myaccountname' style='font-size:2em;color:#ffffff;font-weight:bold;'>...</div> 
+  </div>
+ 
+  <div id='walletmenu_anchor' style='position:absolute;width:100%;'>
+   <div id='anchorbutton' onclick="login_anchor()" class='loginbutton_anchor noselect' style='margin-left:auto;margin-right:auto;' >ANCHOR</div>  
+  </div>
+ 
+</div>
+
+
+
+
+
+<div id='walletmenu_right' style='float:left;position:relative;width:49%;text-align:center;margin-top:20px;background:#5555ff;'>
+  <div id='walletmenu_aa' style='position:absolute;width:100%;'>
+  <div id='logoutbutton' onclick="logout_all()"  class='defaultbutton noselect' style='visibility:hidden;margin-left:auto;margin-right:auto;' >Logout</div>
+
+  </div>
+
+  <div id='walletmenu_scatter' style='position:absolute;width:100%;visibility:hiddenx;'>
+  <div onclick="login_wcw()" class='defaultbutton noselect' style='margin-left:auto;margin-right:auto;'  >Wax Cloud Wallet</div>
+
+  </div>
+
+</div>
+
+
+<div style='clear:both;'></div>
+  
+
+
+</div> <!-- end walletmenu -->
+
+
+<br>
+<div style='text-align:center;'>
+<span id='balance_wax'>...</span> - <span id='balance_sun'>...</span><br>  
+</div> <!-- center -->
+
+
+
+
+<div class='headframe'><h2>Wallet-Inventory:</h2></div>
+<div style='text-align:center;'>
+ <div id='div_inventory' class='div_inventory' style=''>
+  <div id='div_inventory_inner' class='div_inventory_inner' style=''>  
+  </div> <!-- div_inventory_inner -->
+ </div> <!-- div_inventory -->
+</div> <!-- center -->
+
+
+
+<br>
+<br>
+
+<br>
+<div style='text-align:center;'>
+<span id='balance_wax2'>...</span> - <span id='balance_sun2'>...</span><br>  
+</div> <!-- center -->
+<br>
+
+<div class='headframe'><h2>Staked:</h2></div>
+<div style='text-align:center;'>
+ <div id='div_staked' class='div_staked' style=''>
+  <div id='div_staked_inner' class='div_inventory_inner' style=''>  
+  </div> <!-- div_staked_inner -->
+ </div> <!-- div_staked -->
+</div> <!-- center -->
+
+ 
+
+ 
+<br>
+<br>
+<br> 
+ 
+<div class='headframe'>
+<small>This demo is a WAX staking demo (WAX-testnet). Developer contact e-mail: <em>sven.pohl@zen-systems.de</em>   </small>
+</div>
+ 
+<br> 
+<br>
+<br> 
+ 
+<script>
+var id      = 10;
+var tokenid = 12;
+var price   = 1;
+var user    = "";
+ 
+ 
+function setaccountname( name )
+{
+document.getElementById('myaccountname').innerHTML = ""+name+"";
+ 
+document.getElementById('walletmenu_anchor').style.visibility = "hidden";
+document.getElementById('walletmenu_anchor').style.height = "0px";
+
+document.getElementById('walletmenu_scatter').style.visibility = "hidden";
+document.getElementById('walletmenu_scatter').style.height = "0px"; 
+
+document.getElementById('logoutbutton').style.visibility = "visible";
+document.getElementById('logoutbutton').style.height = ""; 
+}
+
+
+
+function logoutall( name )
+{
+document.getElementById('myaccountname').innerHTML = "xxx";
+
+document.getElementById('walletmenu_anchor').style.visibility = "visible";
+document.getElementById('walletmenu_anchor').style.height = "";
+
+document.getElementById('walletmenu_scatter').style.visibility = "visible";
+document.getElementById('walletmenu_scatter').style.height = "";
+
+ 
+document.getElementById('logoutbutton').style.visibility = "hidden";
+document.getElementById('logoutbutton').style.height = "0px";
+}
+
+
+
+function external_login_action()
+{
+update_counter = 0;
+}
+
+function func_success( message )
+{
+alert(message);
+}
+
+function func_error( message )
+{
+alert(message);
+}
+
+ 
+ 
+
+function callback_render_balance1( value )
+{
+if (value.rows.length == 0) return;                   
+balance = value.rows[0].balance;
+
+balance2 = balance.replace("WAX", "");
+balance = Number(balance2).toFixed(4) + " WAX";
+    
+buffer = "" + balance;
+last_balance1 = balance;
+document.getElementById('balance_wax').innerHTML  = buffer;                               
+document.getElementById('balance_wax2').innerHTML = buffer;                               
+} // callback_render_balance1
+
+
+function get_balance_wax()
+{
+getdata(callback_render_balance1, "eosio.token", global_account, "accounts", "", "", "", 112 );
+}
+
+
+
+
+function callback_render_balance2( value )
+{
+if (value.rows.length == 0) return;                   
+balance = value.rows[0].balance;
+
+balance2 = balance.replace("SUN", "");
+balance = Number(balance2).toFixed(4) + " SUN";
+    
+buffer = "" + balance;
+last_balance1 = balance;
+document.getElementById('balance_sun').innerHTML  = buffer;                               
+document.getElementById('balance_sun2').innerHTML = buffer;                               
+} // callback_render_balance2
+
+
+function get_balance_sun()
+{
+getdata(callback_render_balance2, "tokentoken11", global_account, "accounts", "", "", "", 112 );
+}
+// get_balance_sun
+
+
+
+
+
+
+function callback_getinventory( rows )
+{
+console.log("ROWS...(callback)");
+//    console.log(rows);
+    
+content = "";  
+content += "<table><tr>";
+      
+      var size = rows.rows.length;
+      console.log("size:::"+ size);
+      
+for (var i=0; i<size; i++)
+          {
+          var asset_id = rows.rows[i].asset_id;
+    
+      
+          var url = "https://test.wax.api.atomicassets.io/atomicassets/v1/assets/"+asset_id;
+          
+          
+          var jsonparam = JSON.stringify( {assetid: asset_id } ); 
+          var mediajson = readurl(url, jsonparam); 
+       
+
+             
+          var json_array = JSON.parse(mediajson);                                 
+     
+  
+        
+          var collection_name = json_array['data']['collection']['collection_name'] ;
+      
+               
+         if (  collection_name == "xusogamedemo" )       
+            {   
+            var hash_img        = json_array['data']['template']['immutable_data']['img'];
+            var hash_video      = json_array['data']['template']['immutable_data']['video'];
+
+            var title      = json_array['data']['data']['name'] ;
+            if (title == undefined) title = "Alien Girl";
+           
+            content += "<td>";
+            content += "<div class='nft_cell' style=''>"; 
+
+            var gateway = "gateway.ipfs.io";
+           
+            var imgbuffer = "<img src='https://"+gateway+"/ipfs/"+hash_img+"/' style='width:100%;margin-top:10px;'>";
+          
+            var videobuffer = "";
+            var videopath = "";
+            if (hash_video != "" && hash_video !== undefined) 
+               {            
+               videopath = "https://gateway.pinata.cloud/ipfs/" + hash_video;
+                           
+               videobuffer += "<video width='20%'  controls autoplay>";
+               videobuffer += "<source src='"+videopath+"' type='video/mp4'> ";
+ 
+               videobuffer += "Your browser does not support the video tag. ";
+               videobuffer += "</video>";
+ 
+               content +=   videobuffer + "<br>";
+               }              
+               else
+                 { 
+                 content +=   imgbuffer + "<br>";
+                 }
+      
+    
+            asset_link = "<a href='https://wax-test.atomichub.io/explorer/asset/" + asset_id + "' style='color:#eeeeee;' target='_blank'>#"+asset_id+ "</a>";
+           
+            content += "<strong>"+ title + "</strong><br>";
+            content += "<small>"+ asset_link + "</small><br>";
+          
+            buttoncontent = "<div class='stake_button' style='' onclick='stakenft(" + asset_id + ")'> Stake </div><br>";          
+            content += buttoncontent;
+        
+            content += "</div>";   
+            content += "</td>";       
+            } // if (  collection_name == "xusogamedemo" )          
+ 
+          } // for i...
+   
+   
+          content += "</tr></table>";
+         document.getElementById('div_inventory_inner').innerHTML =  content;
+
+} // callback_getinventory()
+
+
+
+function stakenft( asset_id )
+{
+var theactions = [];
+
+memo = "stake";
+
+   
+var action = {
+                 account: "atomicassets",
+                 name: 'transfer',
+                 authorization: [{
+                                actor: global_account,
+                                permission: "active"
+                                }],
+                 data: {
+                       "from": global_account,
+                       "to": "gamedemodemo",
+                       "asset_ids": [ asset_id ],
+                       "memo": memo
+                       }
+                 };
+
+ 
+theactions.push(action);
+   
+
+ 
+if (1)
+   {
+   transact( func_success, func_error, theactions );
+   cnt2=0;
+   }
+ 
+} // stakenft
+
+
+
+
+async function getinventory()
+{  
+console.log("getinventory...");
+ 
+getdata(callback_getinventory, "atomicassets", global_account, "assets", "", "", "", 112 );
+}
+
+
+
+
+
+
+
+function callback_getstaked( rows )
+{
+console.log("ROWS getstaked...(callback)");
+// console.log(rows);
+       
+var size = rows.rows.length;       
+console.log("size: " );
+console.log(size );
+     
+var  content = "";  
+content += "<table><tr>";
+      
+      
+for (var i=0; i<size; i++)
+    {
+    var asset_id = rows.rows[i].asset_id;
+    var user = rows.rows[i].user;
+    var status = rows.rows[i].status;
+    var ts = rows.rows[i].ts;
+    var tsu = rows.rows[i].tsu;
+          
+    var now = gettimestamp();
+    var diff = now - ts;
+    var diff2 = now - tsu;
+
+    if (user == global_account)
+       {
+                             
+       var url = "https://test.wax.api.atomicassets.io/atomicassets/v1/assets/"+asset_id;
+          
+          
+       var jsonparam = JSON.stringify( {assetid: asset_id } ); 
+       var mediajson = readurl(url, jsonparam); 
+             
+       var json_array = JSON.parse(mediajson);                                 
+     
+
+       var hash_img        = json_array['data']['template']['immutable_data']['img'];
+       var hash_video      = json_array['data']['template']['immutable_data']['video'];
+       var collection_name = json_array['data']['collection']['collection_name'] ;
+      
+      
+       if ( collection_name == "xusogamedemo"  )    
+          {   
+          content += "<td>";
+          content += "<div class='nft_cell' style=''>"; 
+
+          var gateway = "gateway.ipfs.io";
+          var imgbuffer = "<img src='https://"+gateway+"/ipfs/"+hash_img+"/' style='width:100%;margin-top:10px;'>";
+          
+          var videobuffer = "";
+          var videopath = "";
+          if (hash_video != "" && hash_video !== undefined) 
+             {            
+             videopath = "https://gateway.pinata.cloud/ipfs/" + hash_video;
+                            
+             videobuffer += "<video width='20%'  controls autoplay>";
+             videobuffer += "<source src='"+videopath+"' type='video/mp4'> ";
+ 
+             videobuffer += "Your browser does not support the video tag. ";
+             videobuffer += "</video>";
+             content +=   videobuffer + "<br>";
+             }              
+             else
+                { 
+                content +=   imgbuffer + "<br>";
+                }
+      
+           var title      = json_array['data']['data']['name'] ;
+           if (title == undefined) title = "Alien Girl";
+           
+
+           asset_link = "<a href='https://wax-test.atomichub.io/explorer/asset/" + asset_id + "' style='color:#eeeeee;' target='_blank'>#"+asset_id+ "</a>";
+           content += "<strong>"+ title + "</strong><br>";
+           content += "<small>"+ asset_link + "</small><br>";
+
+           if (diff > (60*60) )
+              {
+              buttoncontent = "<div class='stake_button' style='' onclick='claimtoken(" + asset_id + ")'> claim </div><br>";          
+              content += buttoncontent;
+              } else
+                {
+                buttoncontent = "<div class='stake_button_disabled' style='' onclick='claimtoken(" + asset_id + ")' > claim </div><br>";          
+                content += buttoncontent;
+                }
+          
+           
+           if (status == 1) /* just staked */
+              {
+              buttoncontent = "<div class='stake_button' style='' onclick='unstakenft(" + asset_id + ")'> unstake </div><br>";          
+              content += buttoncontent;
+              }
+
+           if (status == 2) /* unstaking process */
+              {              
+              if (diff2 < (60*3) )
+                 {
+                 remaining = (60*3)-diff2;
+                 buttoncontent = "<div class='stake_button_disabled' style='color:#ccccff;' onclick='unstakenft(" + asset_id + ")'>("+remaining+" sec.) </div><br>";          
+                 content += buttoncontent;
+                 } else
+                   {
+                   buttoncontent = "<div class='stake_button' style='' onclick='unstakenft(" + asset_id + ")'> withdraw &#10149;</div><br>";          
+                   content += buttoncontent;
+                   } 
+              }
+
+ 
+
+      
+           content += "</div>";    
+           content += "</td>";                     
+           } // if ( collection_name == "xusogamedemo" )     
+              
+       }// if (user == global_account)       
+ 
+  
+    
+
+      
+       
+    } // for i...
+   
+      
+    content += "</tr></table>";
+    document.getElementById('div_staked_inner').innerHTML =  content;
+                           
+} // callback_getstaked()
+
+
+
+
+function gettimestamp()
+{
+ret = Math.floor(Date.now() /1000);
+return(ret);
+} // gettimestamp
+
+
+
+function claimtoken( asset_id )
+{
+var theactions = [];
+   
+    var action = {
+                 account: "gamedemodemo",
+                 name: 'claim',
+                 authorization: [{
+                                actor: global_account,
+                                permission: "active"
+                                }],
+                 data: {
+                       "user": global_account,                       
+                       "asset_id":   asset_id,
+                       }
+                 };
+
+ 
+theactions.push(action);
+   
+
+ 
+if (1)
+   {
+   transact( func_success, func_error, theactions );
+   cnt2=0;   
+   }
+ 
+ 
+} // claimtoken
+  
+  
+  
+  
+  
+function unstakenft( asset_id )
+{
+var theactions = [];
+
+   
+    var action = {
+                 account: "gamedemodemo",
+                 name: 'unstake',
+                 authorization: [{
+                                actor: global_account,
+                                permission: "active"
+                                }],
+                 data: {
+                       "user": global_account,                       
+                       "asset_id":   asset_id,
+                       }
+                 };
+ 
+theactions.push(action);
+    
+ 
+if (1)
+   {
+   transact( func_success, func_error, theactions );
+   cnt2=0;
+   }
+  
+} // unstakenft()
+
+
+
+async function getstaked()
+{
+uint64var =   eosjsName.nameToUint64( global_account + "" );
+console.log(uint64var);
+
+getdata(callback_getstaked, "gamedemodemo", "gamedemodemo", "stake", uint64var, 2, "i64", 1112 );
+} 
+
+
+
+function readurl(url, jsonparam) 
+{
+try {
+var xhr = new XMLHttpRequest(); 
+var fd = new FormData(); 
+xhr.open('POST', url, false); 
+
+var data2 = jsonparam ;
+  
+xhr.send(data2); 
+
+var response = xhr.responseText; 
+
+return(response);
+      } catch (e)
+         {
+         console.log("Connection failed, grabbing local");
+         return '[]';
+         }
+} // readurl()
+ 
+ 
+ 
+ 
+ 
+
+var cnt = 0;
+var cnt2 = 0;
+
+function update_thread()
+{
+var time = setTimeout("update_thread()", 1000);
+ 
+get_balance_wax();
+if ( (cnt % 2 ) == 0)  get_balance_sun();
+
+if ( cnt2 == 3 )  
+   {
+   getinventory();
+   getstaked();
+   }
+ 
+cnt++;  
+cnt2++;  
+if (cnt2 > 10) cnt2 = 0;
+} //// update_thread
+
+
+</script>
+
+
+
+<script>
+init_wallets( "membershipfe",setaccountname, logoutall );
+update_thread(); 
+</script>
+
+</body>
+</hmtl>
+

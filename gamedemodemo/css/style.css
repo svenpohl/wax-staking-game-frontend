@@ -1,0 +1,238 @@
+
+.test
+{
+color:#ff00ff;
+}
+
+
+
+.bodyclass
+{
+//background:#ffffff;
+background: url("../img/back.png");
+/* background-size: 660px 600px; */
+
+
+font-family:Arial,Helvetica,sans-serif;  
+font-size:1.2em;
+margin:0px;
+color:#ffffff;
+min-width:925px;
+max-width:1400px;
+
+margin-left:auto;
+margin-right:auto;
+}
+
+
+
+.noselect
+{
+ -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+ }
+ 
+
+
+.walletmenu
+{
+background: url("../img/pixel_black.png");
+width:90%;
+margin-left:auto;
+margin-right:auto;
+border:1px solid #ffffff;
+height:90px;
+ padding:10px;
+ 
+  -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+ 
+
+.loginbutton_anchor
+{
+ 
+ 
+ 
+ 
+width:300px;
+
+background:#007bff;
+color:white;
+cursor:pointer;
+font-size:1.2em;
+letter-spacing: 0.2em;
+
+ -webkit-transition: all 0.2s ease-in-out;  
+ -moz-transition: all 0.2s ease-in-out;  
+ transition: all 0.2s ease-in-out;
+ 
+  -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding:10px;
+    text-align:center;
+    
+    background-image: url('../img/anchor.svg?w4e9r');
+  background-repeat: no-repeat;
+  
+  background-position: right; 
+    background-size: 48px;
+    
+}
+
+ 
+.loginbutton_anchor:hover
+{
+background:#0269d9;
+
+
+    background-image: url('../img/anchor.svg?w48er');
+  background-repeat: no-repeat;
+  
+  background-position: right; 
+    background-size: 48px;
+}
+
+ 
+
+.defaultbutton
+{
+width:300px;
+/*border:1px solid #ff;*/
+background:#007bff;
+color:white;
+cursor:pointer;
+font-size:1.2em;
+
+ -webkit-transition: all 0.2s ease-in-out;  
+ -moz-transition: all 0.2s ease-in-out;  
+ transition: all 0.2s ease-in-out;
+ 
+  -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding:10px;
+    text-align:center;
+    
+    
+}
+
+.defaultbutton:hover
+{
+background:#0269d9;
+
+  }
+
+
+
+.headframe
+{
+   margin-left:auto;
+      margin-right:auto;   
+width:92%;
+}
+
+.div_inventory
+{
+    margin-left:auto;
+      margin-right:auto;   
+width:90%;
+height:330px;
+border:2px solid #ffffff;
+
+
+  -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+    border-radius: 5px;
+    
+      padding:10px;
+      
+ overflow-x:scroll;      
+   
+}
+
+.div_inventory_inner
+{
+display:block; 
+
+
+color:#000000;
+
+  display: inline-block;
+
+}
+
+.div_staked
+{
+    margin-left:auto;
+      margin-right:auto;   
+width:90%;
+height:370px;
+border:2px solid #ffffff;
+
+
+  -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+    border-radius: 5px;
+    
+      padding:10px;
+      
+ overflow-x:scroll;      
+   
+}
+
+.nft_cell
+{
+border:1px solid #eeeeee;
+color:#ffffff;
+-webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding:10px;
+    
+width:150px;
+float:left;
+background: url("../img/pixel.png"); 
+ margin:10px;
+}
+
+.stake_button
+{
+margin-top:10px;
+background:#aaaaff;
+cursor:pointer;
+
+-webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+    border-radius: 5px;
+    
+}
+
+.stake_button:hover
+{
+background:#ccccff;
+}
+
+
+
+.stake_button_disabled
+{
+margin-top:10px;
+background:#aaaaaa;
+ 
+
+-webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+    border-radius: 5px;
+    
+}
+
+.stake_button_disabled:hover
+{
+/*background:#cccccc;*/
+}
+
